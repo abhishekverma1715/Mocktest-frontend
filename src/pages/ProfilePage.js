@@ -43,10 +43,11 @@ export default function ProfilePage() {
 
   return (
     <Layout title="Profile" subtitle="Manage your account settings">
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-        {/* Profile Info */}
+      {/* Using grid-2 class from your CSS - will stack on mobile automatically */}
+      <div className="grid grid-2 gap-6">
+        {/* Profile Info Card */}
         <div className="card">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24, paddingBottom: 20, borderBottom: '1px solid var(--border-subtle)' }}>
+          <div className="flex items-center gap-4 mb-6 pb-5" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
             <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.6rem', fontWeight: 800, color: 'white' }}>
               {user?.name?.charAt(0).toUpperCase()}
             </div>
@@ -56,7 +57,8 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
+          {/* Stats row - using grid-2 from your CSS */}
+          <div className="grid grid-2 gap-3 mb-5">
             {[
               { label: 'Tests Taken', value: user?.totalAttempts || 0 },
               { label: 'Total Points', value: user?.totalScore || 0 },
@@ -71,23 +73,23 @@ export default function ProfilePage() {
           <form onSubmit={handleProfile}>
             <div className="form-group">
               <label className="form-label">Full Name</label>
-              <div style={{ position: 'relative' }}>
-                <User size={15} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input className="form-input" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} style={{ paddingLeft: 36 }} required />
+              <div className="input-icon-wrapper">
+                <User size={15} className="input-icon" />
+                <input className="form-input" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
               </div>
             </div>
             <div className="form-group">
               <label className="form-label">Email</label>
-              <div style={{ position: 'relative' }}>
-                <Mail size={15} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input className="form-input" value={user?.email} disabled style={{ paddingLeft: 36, opacity: 0.6 }} />
+              <div className="input-icon-wrapper">
+                <Mail size={15} className="input-icon" />
+                <input className="form-input" value={user?.email} disabled style={{ opacity: 0.6 }} />
               </div>
             </div>
             <div className="form-group">
               <label className="form-label">Phone (Optional)</label>
-              <div style={{ position: 'relative' }}>
-                <Phone size={15} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input className="form-input" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} placeholder="+91 xxxxx xxxxx" style={{ paddingLeft: 36 }} />
+              <div className="input-icon-wrapper">
+                <Phone size={15} className="input-icon" />
+                <input className="form-input" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} placeholder="+91 xxxxx xxxxx" />
               </div>
             </div>
             <button type="submit" className="btn btn-primary btn-full" disabled={saving} style={{ gap: 8 }}>
@@ -96,7 +98,7 @@ export default function ProfilePage() {
           </form>
         </div>
 
-        {/* Change Password */}
+        {/* Change Password Card */}
         <div className="card">
           <h3 style={{ marginBottom: 6 }}>Change Password</h3>
           <p style={{ marginBottom: 24, fontSize: '0.85rem' }}>Use a strong password to protect your account</p>
@@ -108,9 +110,9 @@ export default function ProfilePage() {
             ].map(({ label, key, placeholder }) => (
               <div className="form-group" key={key}>
                 <label className="form-label">{label}</label>
-                <div style={{ position: 'relative' }}>
-                  <Lock size={15} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                  <input className="form-input" type="password" value={passForm[key]} onChange={e => setPassForm({ ...passForm, [key]: e.target.value })} placeholder={placeholder} required style={{ paddingLeft: 36 }} />
+                <div className="input-icon-wrapper">
+                  <Lock size={15} className="input-icon" />
+                  <input className="form-input" type="password" value={passForm[key]} onChange={e => setPassForm({ ...passForm, [key]: e.target.value })} placeholder={placeholder} required />
                 </div>
               </div>
             ))}

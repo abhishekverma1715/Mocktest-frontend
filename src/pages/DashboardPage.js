@@ -23,7 +23,7 @@ function StatCard({ label, value, icon: Icon, color, sub }) {
         </div>
         <TrendingUp size={13} color={color} style={{ opacity:0.45 }} />
       </div>
-      <div style={{ fontSize:'1.7rem', fontWeight:900, lineHeight:1, marginBottom:4, letterSpacing:'-0.03em' }}>{value}</div>
+      <div style={{ fontSize:'clamp(1.3rem, 5vw, 1.7rem)', fontWeight:900, lineHeight:1, marginBottom:4, letterSpacing:'-0.03em' }}>{value}</div>
       <div style={{ fontSize:'0.75rem', color:'var(--text-muted)', fontWeight:500 }}>{label}</div>
       {sub && <div style={{ fontSize:'0.72rem', color, marginTop:4, fontWeight:600 }}>{sub}</div>}
     </div>
@@ -44,7 +44,7 @@ function SkeletonCard() {
 function TestItem({ test }) {
   const color = CAT_COLORS[test.category] || '#6366f1';
   return (
-    <div className="card card-sm card-hover" style={{ display:'flex', alignItems:'center', gap:14, padding:'13px 16px' }}>
+    <div className="card card-sm card-hover" style={{ display:'flex', alignItems:'center', gap:14, padding:'13px 16px', flexWrap:'wrap' }}>
       <div style={{ width:40, height:40, borderRadius:'var(--r-md)', background:`${color}18`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
         <BookOpen size={17} color={color} />
       </div>
@@ -79,7 +79,6 @@ export default function DashboardPage() {
       setResults(r.data.results || []);
     }).catch((err) => {
       console.error('Dashboard load error:', err);
-      // Set empty arrays on error to prevent UI crashes
       setTests([]);
       setResults([]);
     }).finally(() => setLoading(false));
@@ -103,30 +102,43 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      {/* Hero */}
-      <div style={{ background:'linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-elevated) 100%)', borderRadius:'var(--r-2xl)', padding:'24px 28px', marginBottom:24, border:'1px solid var(--border-base)', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:16, overflow:'hidden', position:'relative' }}>
+      {/* Hero - Responsive with flex-wrap */}
+      <div style={{ 
+        background:'linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-elevated) 100%)', 
+        borderRadius:'var(--r-2xl)', 
+        padding:'clamp(20px, 4vw, 28px)', 
+        marginBottom:24, 
+        border:'1px solid var(--border-base)', 
+        display:'flex', 
+        alignItems:'center', 
+        justifyContent:'space-between', 
+        flexWrap:'wrap', 
+        gap:16, 
+        overflow:'hidden', 
+        position:'relative' 
+      }}>
         <div style={{ position:'absolute', right:-30, top:-30, width:180, height:180, borderRadius:'50%', background:'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)' }} />
         <div style={{ position:'relative', zIndex:1 }}>
           <p style={{ fontSize:'0.82rem', color:'var(--text-muted)', fontWeight:500, marginBottom:4 }}>{greeting}, 👋</p>
-          <h1 style={{ marginBottom:6 }}>{firstName}!</h1>
-          <p style={{ fontSize:'0.9rem', margin:0 }}>Ready to crack your exam? Let's keep the momentum going.</p>
+          <h1 style={{ marginBottom:6, fontSize:'clamp(1.3rem, 5vw, 2rem)' }}>{firstName}!</h1>
+          <p style={{ fontSize:'clamp(0.8rem, 3vw, 0.9rem)', margin:0 }}>Ready to crack your exam? Let's keep the momentum going.</p>
         </div>
-        <button onClick={() => navigate('/tests')} className="btn btn-primary btn-lg" style={{ flexShrink:0 }}>
+        <button onClick={() => navigate('/tests')} className="btn btn-primary" style={{ flexShrink:0 }}>
           Start a Test <ArrowUpRight size={16} />
         </button>
       </div>
 
-      {/* Stats */}
+      {/* Stats - Using grid-4 from your CSS (becomes 2 on tablet, 1 on mobile) */}
       <div className="grid grid-4 gap-4" style={{ marginBottom:28 }}>
         {stats.map(s => <StatCard key={s.label} {...s} />)}
       </div>
 
-      {/* Main content — responsive: stacks on tablet/mobile */}
-      <div style={{ display:'grid', gridTemplateColumns:'clamp(200px, 60%, 720px) 1fr', gap:20 }}>
+      {/* Main content - Using responsive grid classes from your CSS */}
+      <div className="dashboard-main-grid" style={{ display:'grid', gridTemplateColumns:'clamp(200px, 60%, 720px) 1fr', gap:20 }}>
         {/* Available Tests */}
         <div>
-          <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14 }}>
-            <h3>Available Tests</h3>
+          <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14, flexWrap:'wrap', gap:8 }}>
+            <h3 style={{ fontSize:'clamp(1rem, 4vw, 1.2rem)' }}>Available Tests</h3>
             <Link to="/tests" className="btn btn-sm btn-ghost" style={{ gap:4, fontSize:'0.8rem' }}>
               View All <ChevronRight size={14} />
             </Link>
@@ -136,7 +148,7 @@ export default function DashboardPage() {
               ? Array(4).fill(0).map((_, i) => <SkeletonCard key={i} />)
               : tests.length === 0
                 ? (
-                  <div className="card" style={{ textAlign:'center', padding:'40px 20px' }}>
+                  <div className="card" style={{ textAlign:'center', padding:'clamp(30px, 8vw, 40px) 20px' }}>
                     <BookOpen size={40} style={{ color:'var(--text-muted)', marginBottom:12 }} />
                     <p>No tests available yet</p>
                   </div>
@@ -148,8 +160,8 @@ export default function DashboardPage() {
 
         {/* Recent Results */}
         <div>
-          <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14 }}>
-            <h3>Recent Results</h3>
+          <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14, flexWrap:'wrap', gap:8 }}>
+            <h3 style={{ fontSize:'clamp(1rem, 4vw, 1.2rem)' }}>Recent Results</h3>
             <Link to="/history" className="btn btn-sm btn-ghost" style={{ gap:4, fontSize:'0.8rem' }}>
               History <ChevronRight size={14} />
             </Link>
@@ -158,7 +170,7 @@ export default function DashboardPage() {
             ? Array(3).fill(0).map((_, i) => <SkeletonCard key={i} />)
             : results.length === 0
               ? (
-                <div className="card" style={{ textAlign:'center', padding:'40px 20px' }}>
+                <div className="card" style={{ textAlign:'center', padding:'clamp(30px, 8vw, 40px) 20px' }}>
                   <Award size={40} style={{ color:'var(--text-muted)', marginBottom:12 }} />
                   <p style={{ marginBottom:14, fontSize:'0.875rem' }}>No attempts yet</p>
                   <Link to="/tests" className="btn btn-primary btn-sm">Take First Test</Link>
@@ -173,13 +185,13 @@ export default function DashboardPage() {
                     return (
                       <Link key={r._id} to={`/result/${r._id}`} style={{ textDecoration:'none' }}>
                         <div className="card card-sm card-hover" style={{ padding:'12px 14px' }}>
-                          <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+                          <div style={{ display:'flex', alignItems:'center', gap:12, flexWrap:'wrap' }}>
                             <div style={{ width:44, height:44, borderRadius:'var(--r-md)', background:bgColor, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', flexShrink:0, border:`1.5px solid ${color}30` }}>
                               <span style={{ fontWeight:900, fontSize:'0.88rem', color, lineHeight:1 }}>{pct}%</span>
                             </div>
                             <div style={{ flex:1, minWidth:0 }}>
                               <div style={{ fontWeight:600, fontSize:'0.82rem', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{r.test?.title}</div>
-                              <div style={{ fontSize:'0.72rem', color:'var(--text-muted)', marginTop:3, display:'flex', gap:8 }}>
+                              <div style={{ fontSize:'0.72rem', color:'var(--text-muted)', marginTop:3, display:'flex', gap:8, flexWrap:'wrap' }}>
                                 <span style={{ display:'flex', alignItems:'center', gap:3 }}><CheckCircle2 size={10} />{r.correctAnswers} correct</span>
                                 <span>{new Date(r.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}</span>
                               </div>
@@ -199,10 +211,30 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Responsive override for mobile/tablet */}
+      {/* Responsive CSS - Using your existing breakpoints */}
       <style>{`
         @media (max-width: 900px) {
-          .dashboard-main-grid { grid-template-columns: 1fr !important; }
+          .dashboard-main-grid { 
+            grid-template-columns: 1fr !important; 
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .stat-card {
+            padding: var(--space-4) !important;
+          }
+          
+          .btn-primary {
+            padding: 8px 16px !important;
+            font-size: 0.85rem !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .btn-primary {
+            width: 100% !important;
+            justify-content: center !important;
+          }
         }
       `}</style>
     </Layout>
