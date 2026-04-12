@@ -63,58 +63,27 @@ export default function VideosPage() {
 
   return (
     <Layout title="Video Library" subtitle={`${total} lectures across all subjects`}>
-      {/* Premium Banner - Responsive */}
+      {/* Premium Banner */}
       {!isPremium && user?.role !== 'admin' && (
-        <div style={{ 
-          background: 'linear-gradient(135deg, #f6d365, #fda085)', 
-          borderRadius: 'var(--r-lg)', 
-          padding: 'clamp(12px, 4vw, 16px) clamp(16px, 5vw, 24px)', 
-          marginBottom: 24, 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'space-between', 
-          flexWrap: 'wrap', 
-          gap: 12 
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: '#1a1a2e', flexWrap: 'wrap' }}>
+        <div style={{ background: 'linear-gradient(135deg, #f6d365, #fda085)', borderRadius: 'var(--r-lg)', padding: '16px 24px', marginBottom: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: '#1a1a2e' }}>
             <Crown size={24} />
             <div>
-              <div style={{ fontWeight: 700, fontSize: 'clamp(0.9rem, 3vw, 1rem)' }}>Unlock Premium Videos</div>
-              <div style={{ fontSize: 'clamp(0.75rem, 3vw, 0.85rem)', opacity: 0.8 }}>Get full access to all lectures with a premium plan</div>
+              <div style={{ fontWeight: 700 }}>Unlock Premium Videos</div>
+              <div style={{ fontSize: '0.85rem', opacity: 0.8 }}>Get full access to all lectures with a premium plan</div>
             </div>
           </div>
-          <button 
-            onClick={() => navigate('/membership')} 
-            style={{ 
-              background: '#1a1a2e', 
-              color: 'white', 
-              border: 'none', 
-              padding: 'clamp(8px, 3vw, 10px) clamp(16px, 4vw, 20px)', 
-              borderRadius: 'var(--r-md)', 
-              fontWeight: 700, 
-              cursor: 'pointer', 
-              fontFamily: 'var(--font)', 
-              fontSize: 'clamp(0.85rem, 3vw, 0.9rem)', 
-              whiteSpace: 'nowrap' 
-            }}>
+          <button onClick={() => navigate('/membership')} style={{ background: '#1a1a2e', color: 'white', border: 'none', padding: '10px 20px', borderRadius: 'var(--r-md)', fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font)', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
             Upgrade Now →
           </button>
         </div>
       )}
 
-      {/* Video Player Modal - Responsive */}
+      {/* Video Player Modal */}
       {selectedVideo && (
-        <div style={{ 
-          position: 'fixed', 
-          inset: 0, 
-          zIndex: 200, 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-          padding: 'clamp(10px, 3vw, 20px)' 
-        }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
           <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.9)' }} onClick={() => setSelectedVideo(null)} />
-          <div style={{ position: 'relative', width: '100%', maxWidth: 900, animation: 'fadeIn 0.2s ease', margin: '0 auto' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: 900, animation: 'fadeIn 0.2s ease' }}>
             <div style={{ background: 'var(--bg-card)', borderRadius: 'var(--radius-xl)', overflow: 'hidden' }}>
               <div style={{ position: 'relative', paddingBottom: '56.25%', background: '#000' }}>
                 <iframe
@@ -125,18 +94,11 @@ export default function VideosPage() {
                   allowFullScreen
                 />
               </div>
-              <div style={{ 
-                padding: 'clamp(12px, 4vw, 16px) clamp(16px, 5vw, 20px)', 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'flex-start', 
-                gap: 12,
-                flexWrap: 'wrap'
-              }}>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <h3 style={{ marginBottom: 4, fontSize: 'clamp(1rem, 4vw, 1.2rem)' }}>{selectedVideo.title}</h3>
-                  <p style={{ fontSize: 'clamp(0.8rem, 3vw, 0.85rem)', margin: 0 }}>{selectedVideo.description}</p>
-                  <div style={{ display: 'flex', gap: 12, marginTop: 8, flexWrap: 'wrap' }}>
+              <div style={{ padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
+                <div>
+                  <h3 style={{ marginBottom: 4 }}>{selectedVideo.title}</h3>
+                  <p style={{ fontSize: '0.85rem', margin: 0 }}>{selectedVideo.description}</p>
+                  <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
                     <span className="badge badge-primary">{selectedVideo.category}</span>
                     {selectedVideo.subject && <span className="badge badge-info">{selectedVideo.subject}</span>}
                     <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.78rem', color: 'var(--text-muted)' }}>
@@ -144,18 +106,7 @@ export default function VideosPage() {
                     </span>
                   </div>
                 </div>
-                <button 
-                  onClick={() => setSelectedVideo(null)} 
-                  style={{ 
-                    background: 'var(--bg-elevated)', 
-                    border: '1px solid var(--border-subtle)', 
-                    color: 'var(--text-secondary)', 
-                    padding: '8px 16px', 
-                    borderRadius: 'var(--r-md)', 
-                    cursor: 'pointer', 
-                    fontFamily: 'var(--font)', 
-                    flexShrink: 0 
-                  }}>
+                <button onClick={() => setSelectedVideo(null)} style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', color: 'var(--text-secondary)', padding: '8px 16px', borderRadius: 'var(--r-md)', cursor: 'pointer', fontFamily: 'var(--font)', flexShrink: 0 }}>
                   Close ✕
                 </button>
               </div>
@@ -164,74 +115,44 @@ export default function VideosPage() {
         </div>
       )}
 
-      {/* Search & Filter - Using grid classes */}
-      <div className="grid-2 gap-3" style={{ marginBottom: 20 }}>
-        <div className="input-icon-wrapper" style={{ width: '100%' }}>
-          <Search size={15} className="input-icon" />
-          <input 
-            className="form-input" 
-            placeholder="Search videos..." 
-            value={search} 
-            onChange={e => setSearch(e.target.value)} 
-          />
+      {/* Search & Filter */}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
+        <div style={{ position: 'relative', flex: 1, minWidth: 200 }}>
+          <Search size={15} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+          <input className="form-input" placeholder="Search videos..." value={search} onChange={e => setSearch(e.target.value)} style={{ paddingLeft: 36 }} />
         </div>
       </div>
 
-      {/* Category tabs - Responsive with horizontal scroll on mobile */}
-      <div style={{ 
-        display: 'flex', 
-        gap: 8, 
-        marginBottom: 24, 
-        overflowX: 'auto', 
-        paddingBottom: 4,
-        WebkitOverflowScrolling: 'touch',
-        scrollbarWidth: 'thin'
-      }}>
+      {/* Category tabs */}
+      <div style={{ display: 'flex', gap: 8, marginBottom: 24, overflowX: 'auto', paddingBottom: 4 }}>
         {CATEGORIES.map(c => (
-          <button 
-            key={c} 
-            onClick={() => setCategory(c)} 
-            style={{ 
-              padding: '6px 16px', 
-              borderRadius: 'var(--r-full)', 
-              border: '1.5px solid', 
-              whiteSpace: 'nowrap', 
-              cursor: 'pointer', 
-              fontFamily: 'var(--font)', 
-              fontWeight: 500, 
-              fontSize: 'clamp(0.8rem, 3vw, 0.85rem)', 
-              flexShrink: 0, 
-              transition: 'var(--transition)', 
-              background: category === c ? 'var(--accent)' : 'transparent', 
-              color: category === c ? 'white' : 'var(--text-secondary)', 
-              borderColor: category === c ? 'var(--accent)' : 'var(--border-base)' 
-            }}>
+          <button key={c} onClick={() => setCategory(c)} style={{ padding: '6px 16px', borderRadius: 'var(--r-full)', border: '1.5px solid', whiteSpace: 'nowrap', cursor: 'pointer', fontFamily: 'var(--font)', fontWeight: 500, fontSize: '0.85rem', flexShrink: 0, transition: 'var(--transition)', background: category === c ? 'var(--accent)' : 'transparent', color: category === c ? 'white' : 'var(--text-secondary)', borderColor: category === c ? 'var(--accent)' : 'var(--border-base)' }}>
             {c}
           </button>
         ))}
       </div>
 
-      {/* Videos Grid - Using your existing grid-auto class */}
+      {/* Videos Grid */}
       {loading ? (
-        <div className="grid-auto gap-4">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
           {Array(6).fill(0).map((_, i) => (
-            <div key={i} className="card" style={{ height: 220, padding: 0 }}>
-              <div className="skeleton" style={{ height: '100%', borderRadius: 'var(--r-lg)' }} />
+            <div key={i} className="card" style={{ height: 220 }}>
+              <div style={{ animation: 'pulse 1.5s infinite', background: 'var(--bg-elevated)', borderRadius: 8, height: '100%' }} />
             </div>
           ))}
         </div>
       ) : videos.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: 'clamp(40px, 10vw, 60px) 20px' }}>
+        <div style={{ textAlign: 'center', padding: 60 }}>
           <Play size={48} style={{ color: 'var(--text-muted)', marginBottom: 16 }} />
           <h3>No videos found</h3>
           <p>Try a different category or search term</p>
         </div>
       ) : (
-        <div className="grid-auto gap-4">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
           {videos.map(video => {
             const locked = video.isPremium && !isPremium && user?.role !== 'admin';
             return (
-              <div key={video._id} className="card card-hover" style={{ padding: 0, overflow: 'hidden', cursor: 'pointer' }} onClick={() => handlePlay(video)}>
+              <div key={video._id} className="card" style={{ padding: 0, overflow: 'hidden', cursor: 'pointer' }} onClick={() => handlePlay(video)}>
                 {/* Thumbnail */}
                 <div style={{ position: 'relative', paddingBottom: '56.25%', background: 'var(--bg-elevated)' }}>
                   {video.thumbnailUrl ? (
@@ -242,15 +163,7 @@ export default function VideosPage() {
                     </div>
                   )}
                   {/* Overlay */}
-                  <div style={{ 
-                    position: 'absolute', 
-                    inset: 0, 
-                    background: locked ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.2)', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    transition: 'var(--transition)' 
-                  }}>
+                  <div style={{ position: 'absolute', inset: 0, background: locked ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'var(--transition)' }}>
                     {locked ? (
                       <div style={{ textAlign: 'center', color: 'white' }}>
                         <Lock size={28} />
@@ -276,21 +189,13 @@ export default function VideosPage() {
                   )}
                 </div>
                 {/* Info */}
-                <div style={{ padding: 'clamp(12px, 4vw, 14px) clamp(12px, 4vw, 16px)' }}>
-                  <div style={{ display: 'flex', gap: 6, marginBottom: 8, flexWrap: 'wrap' }}>
+                <div style={{ padding: '14px 16px' }}>
+                  <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
                     <span className="badge" style={{ background: `${CAT_COLORS[video.category] || '#6c63ff'}15`, color: CAT_COLORS[video.category] || '#6c63ff', fontSize: '0.7rem' }}>{video.category}</span>
                     {video.subject && <span className="badge badge-info" style={{ fontSize: '0.7rem' }}>{video.subject}</span>}
                   </div>
-                  <h4 style={{ 
-                    fontSize: 'clamp(0.85rem, 3vw, 0.92rem)', 
-                    lineHeight: 1.4, 
-                    marginBottom: 8, 
-                    display: '-webkit-box', 
-                    WebkitLineClamp: 2, 
-                    WebkitBoxOrient: 'vertical', 
-                    overflow: 'hidden' 
-                  }}>{video.title}</h4>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '0.78rem', color: 'var(--text-muted)', flexWrap: 'wrap' }}>
+                  <h4 style={{ fontSize: '0.92rem', lineHeight: 1.4, marginBottom: 8, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{video.title}</h4>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                     <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Eye size={12} />{video.views}</span>
                     {video.duration > 0 && <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={12} />{formatDuration(video.duration)}</span>}
                   </div>
